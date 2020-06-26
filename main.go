@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"log"
 	"mime/multipart"
 	"net/http"
 	"os"
@@ -29,11 +30,12 @@ func main() {
 	a.Token = token
 	loc, _ := time.LoadLocation("Asia/Jakarta")
 	now := time.Now().In(loc).Format("15:04:05")
-	if now >= "08:00:00" {
-		a.check(CHECKIN)
-	} else if now >= "20:00:00" {
+	if now >= "20:00:00" {
 		a.check(CHECKOUT)
+	} else if now >= "08:00:00" {
+		a.check(CHECKIN)
 	}
+	log.Println("Finish")
 }
 
 func (a *Absen) check(status string) {
