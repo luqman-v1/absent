@@ -1,1 +1,1 @@
-worker: absen
+worker: absent
