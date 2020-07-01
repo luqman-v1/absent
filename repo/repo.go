@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"log"
 	"mime/multipart"
 	"net/http"
 	"os"
@@ -22,6 +23,7 @@ type Repo struct {
 }
 
 func (a *Repo) Present(status string) {
+	log.Println("start present")
 	url := "https://api-mobile.talenta.co/api/v1/live-attendance"
 	method := "POST"
 
