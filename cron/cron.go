@@ -19,26 +19,26 @@ func RunJob() {
 	nyc, _ := time.LoadLocation("Asia/Jakarta")
 	c := cron.New(cron.WithLocation(nyc))
 
-	_, err := c.AddFunc(CRON_CHECKIN, func() {
-		func() {
-			repoPresent := repo.NewRepo()
-			repoPresent.Login()
-			repoPresent.Present(repo.CHECKIN)
-		}()
+	aa, err := c.AddFunc(CRON_CHECKIN, func() {
+		repoPresent := repo.NewRepo()
+		repoPresent.Login()
+		repoPresent.Present(repo.CHECKIN)
 	})
+	log.Println(aa)
 	if err != nil {
 		log.Println("err", err)
 	}
-	_, err = c.AddFunc(CRON_CHECKOUT, func() {
-		func() {
-			repoPresent := repo.NewRepo()
-			repoPresent.Login()
-			repoPresent.Present(repo.CHECKOUT)
-		}()
+	bb, err := c.AddFunc(CRON_CHECKOUT, func() {
+		repoPresent := repo.NewRepo()
+		repoPresent.Login()
+		repoPresent.Present(repo.CHECKOUT)
 	})
+	log.Println(bb)
 	if err != nil {
 		log.Println("err", err)
 	}
 
 	c.Start()
+
+	c.Stop()
 }
