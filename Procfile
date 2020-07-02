@@ -1,1 +1,1 @@
-worker: absent
+web: absent
