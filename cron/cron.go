@@ -4,6 +4,9 @@ import (
 	"log"
 	"time"
 
+	"github.com/luqman-v1/absent/worker"
+	"github.com/qasir-id/qasirworker"
+
 	"github.com/luqman-v1/absent/repo"
 
 	"github.com/robfig/cron/v3"
@@ -19,26 +22,29 @@ func RunJob() {
 	nyc, _ := time.LoadLocation("Asia/Jakarta")
 	c := cron.New(cron.WithLocation(nyc))
 
-	aa, err := c.AddFunc(CRON_CHECKIN, func() {
-		repoPresent := repo.NewRepo()
-		repoPresent.Login()
-		repoPresent.Present(repo.CHECKIN)
+	_, err := c.AddFunc(CRON_CHECKIN, func() {
+		payload := &worker.Payload{
+			Status: repo.CHECKIN,
+		}
+		work := qasirworker.Job{Executor: payload}
+		qasirworker.JobQueue <- work
 	})
-	log.Println(aa)
+
 	if err != nil {
 		log.Println("err", err)
 	}
-	bb, err := c.AddFunc(CRON_CHECKOUT, func() {
-		repoPresent := repo.NewRepo()
-		repoPresent.Login()
-		repoPresent.Present(repo.CHECKOUT)
+	_, err = c.AddFunc(CRON_CHECKOUT, func() {
+		payload := &worker.Payload{
+			Status: repo.CHECKOUT,
+		}
+		work := qasirworker.Job{Executor: payload}
+		qasirworker.JobQueue <- work
 	})
-	log.Println(bb)
 	if err != nil {
 		log.Println("err", err)
 	}
 
 	c.Start()
 
-	c.Stop()
+	//c.Stop()
 }
