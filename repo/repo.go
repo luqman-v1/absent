@@ -29,7 +29,7 @@ func (a *Repo) Present(status string) {
 
 	payload := &bytes.Buffer{}
 	writer := multipart.NewWriter(payload)
-	_ = writer.WriteField("status", "checkin")
+	_ = writer.WriteField("status", status)
 	_ = writer.WriteField("latitude", "-6.3443904")
 	_ = writer.WriteField("longitude", "106.8705516")
 	file, errFile4 := os.Open("/selfie.JPG")
