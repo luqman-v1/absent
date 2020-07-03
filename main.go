@@ -17,6 +17,11 @@ func main() {
 	//cron.RunJob()
 
 	r := gin.Default()
+	r.GET("/ping", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"message": "pong",
+		})
+	})
 	r.GET("/checkin", func(c *gin.Context) {
 		payload := &worker.Payload{
 			Status: repo.CHECKIN,
