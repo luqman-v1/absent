@@ -31,8 +31,8 @@ SECRET_KEY=xxx          //for middleware service
 ## Running with Your Cron
 ```go
 //by default serve rest api
-// CRON_CHECKIN = "* 08 * * *"
-// CRON_CHECKOUT = "* 20 * * *"
+// CRON_CHECKIN = "1 8 * * 1,2,3,4,5" --> “At 08:01 on Monday, Tuesday,Wednesday, Thursday, and Friday.”
+// CRON_CHECKOUT = "1 20 * * 1,2,3,4,5" --> “At 20:01 on Monday, Tuesday,Wednesday, Thursday, and Friday.”
 func main() {
 	log.Println("Start")
 	helper.Dispatcher.Run()
