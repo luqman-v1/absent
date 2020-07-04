@@ -14,7 +14,7 @@ func main() {
 	log.Println("Start")
 	err := godotenv.Load()
 	if err != nil {
-		log.Fatal("Error loading .env file")
+		log.Println("Error loading .env file")
 	}
 	helper.Dispatcher.Run()
 	//UNCOMMENT THIS FUNCTION IF YOU RUNNING WITH YOUR OWN CRON
