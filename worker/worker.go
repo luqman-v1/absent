@@ -10,7 +10,7 @@ type Payload struct {
 
 func (p *Payload) Handle() error {
 	repoPresent := repo.NewRepo()
-	repoPresent.Login()
-	repoPresent.Present(p.Status)
+	_, _ = repoPresent.Login()
+	_, _ = repoPresent.Present(p.Status)
 	return nil
 }
