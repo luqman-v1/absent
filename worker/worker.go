@@ -32,7 +32,7 @@ func (p *Payload) Handle() error {
 	}
 	//check event calender exist
 	items := gjson.Get(string(l), "items").Array()
-	if len(items) < 0 {
+	if len(items) <= 0 {
 		repoPresent := repo.NewRepoTalenta()
 		_, err = repoPresent.Login()
 		if err != nil {
