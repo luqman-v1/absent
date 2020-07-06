@@ -15,11 +15,11 @@ const CHECKOUT = "checkout"
 const BaseUrlTalenta = "https://api-mobile.talenta.co/api/v1/"
 const DeviceIDDefault = "QTg2QTI4Rjk0OUI3NDU5NjlFMjI2MTU3NjA2Q"
 
-type Repo struct {
+type RepoTalenta struct {
 	Token string
 }
 
-func (a *Repo) Login() ([]byte, error) {
+func (a *RepoTalenta) Login() ([]byte, error) {
 	log.Println("Start Login")
 
 	b := map[string]string{
@@ -43,7 +43,7 @@ func (a *Repo) Login() ([]byte, error) {
 	return body, nil
 }
 
-func (a *Repo) Present(status string) ([]byte, error) {
+func (a *RepoTalenta) Present(status string) ([]byte, error) {
 	log.Println("Start Present")
 	b := map[string]string{
 		"status":    status,
@@ -71,13 +71,13 @@ func (a *Repo) Present(status string) ([]byte, error) {
 	return body, nil
 }
 
-func (a *Repo) getDeviceID() string {
+func (a *RepoTalenta) getDeviceID() string {
 	if os.Getenv("DEVICE_ID") == "" {
 		_ = os.Setenv("DEVICE_ID", DeviceIDDefault)
 	}
 	return os.Getenv("DEVICE_ID")
 }
 
-func NewRepo() *Repo {
-	return &Repo{}
+func NewRepoTalenta() *RepoTalenta {
+	return &RepoTalenta{}
 }

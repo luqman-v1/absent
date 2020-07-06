@@ -4,6 +4,8 @@ import (
 	"log"
 	"time"
 
+	"github.com/luqman-v1/absent/helper"
+
 	"github.com/luqman-v1/absent/worker"
 	"github.com/qasir-id/qasirworker"
 
@@ -19,8 +21,8 @@ const CRON_CHECKOUT = "1 20 * * 1,2,3,4,5"
 func RunJob() {
 	log.Println("Running Job absen ...")
 
-	nyc, _ := time.LoadLocation("Asia/Jakarta")
-	c := cron.New(cron.WithLocation(nyc))
+	loc, _ := time.LoadLocation(helper.TimeZone)
+	c := cron.New(cron.WithLocation(loc))
 
 	_, err := c.AddFunc(CRON_CHECKIN, func() {
 		payload := &worker.Payload{

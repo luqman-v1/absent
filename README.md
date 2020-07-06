@@ -2,6 +2,7 @@
 
 * https://www.easycron.com/
 * https://heroku.com
+* google calender API
 
 <p>because using the free version of the heroku account so many restrictions are obtained, therefore additional tools use easycron to run the scheduler.</p>
 
@@ -13,6 +14,8 @@ DEVICE_ID=xxx
 LATITUDE=-6.3443904
 LONGITUDE=106.8705516
 SECRET_KEY=xxx          //for middleware service 
+API_KEY_GOOGLE_CALENDER=xxxx
+GOOGLE_CALENDER_ID=xxxx //by default use calenderId indonesia, for more calenderid visit https://gist.github.com/mattn/1438183
 ```
 
 ## Setup
@@ -45,3 +48,4 @@ func main() {
 	log.Println("Finish")
 }
 ```
+

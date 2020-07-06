@@ -7,8 +7,10 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"log"
 	"mime/multipart"
 	"net/http"
+	"net/url"
 	"os"
 	"path/filepath"
 	"strings"
@@ -24,6 +26,7 @@ type Curl struct {
 	Header          map[string]string
 	HeaderMultiPart map[string]string
 	File            map[string]string
+	Param           map[string]string
 }
 
 func (c *Curl) Send() ([]byte, error) {
@@ -31,6 +34,7 @@ func (c *Curl) Send() ([]byte, error) {
 	var request *http.Request
 	switch c.Method {
 	case METHOD_GET:
+		c.param()
 		r, _ := http.NewRequest(c.Method, c.BaseUrl, nil)
 		request = r
 	case METHOD_POST:
@@ -50,6 +54,19 @@ func (c *Curl) Send() ([]byte, error) {
 	defer response.Body.Close()
 	body, err := ioutil.ReadAll(response.Body)
 	return body, err
+}
+
+func (c *Curl) param() {
+	u, err := url.Parse(c.BaseUrl)
+	if err != nil {
+		log.Fatal(err)
+	}
+	q := u.Query()
+	for k, v := range c.Param {
+		q.Set(k, v)
+	}
+	u.RawQuery = q.Encode()
+	c.BaseUrl = u.String()
 }
 
 func (c *Curl) body() io.Reader {
