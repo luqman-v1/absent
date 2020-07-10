@@ -1,1 +1,1 @@
-web: absent
+worker: ./bin/absent

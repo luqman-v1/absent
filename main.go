@@ -3,6 +3,8 @@ package main
 import (
 	"log"
 
+	"github.com/luqman-v1/absent/cron"
+
 	"github.com/luqman-v1/absent/gate"
 
 	"github.com/joho/godotenv"
@@ -18,7 +20,7 @@ func main() {
 	}
 	helper.Dispatcher.Run()
 	//UNCOMMENT THIS FUNCTION IF YOU RUNNING WITH YOUR OWN CRON
-	//cron.RunJob()
+	cron.RunJob()
 
 	//running with rest api
 	gate.Route()
