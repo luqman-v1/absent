@@ -21,7 +21,7 @@ func (p *Payload) Handle() error {
 	now := time.Now().In(loc)
 	startDate := now.Format(time.RFC3339)
 	//get end date
-	tomorrow := now.Add(1)
+	tomorrow := now.AddDate(0, 0, 1)
 	endDate := tomorrow.Format(time.RFC3339)
 	//set date time
 	rGC.StartDate = startDate
