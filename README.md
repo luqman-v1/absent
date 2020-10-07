@@ -1,10 +1,12 @@
 # Simple Automate Absent with Go
 
-* https://www.easycron.com/
 * https://heroku.com
 * google calender API
 
-<p>because using the free version of the heroku account so many restrictions are obtained, therefore additional tools use easycron to run the scheduler.</p>
+## Support 
+
+- www.talenta.co
+
 
 ## ENV
 ```
@@ -16,11 +18,12 @@ LONGITUDE=106.8705516
 SECRET_KEY=xxx          //for middleware service 
 API_KEY_GOOGLE_CALENDER=xxxx
 GOOGLE_CALENDER_ID=xxxx //by default use calenderId indonesia, for more calenderid visit https://gist.github.com/mattn/1438183
+CRON_CHECKIN="1 8 * * 1,2,3,4,5" // https://crontab.guru/
+CRON_CHECKOUT="1 8 * * 1,2,3,4,5" // https://crontab.guru/
 ```
 
 ## Setup
 * SetUp heroku 
-* SetUp easycron
 * SetUp Env file
 * Change file selfie.JPG to your own photo
 
@@ -39,9 +42,7 @@ GOOGLE_CALENDER_ID=xxxx //by default use calenderId indonesia, for more calender
 func main() {
 	log.Println("Start")
 	helper.Dispatcher.Run()
-	//UNCOMMENT THIS FUNCTION IF YOU RUNNING WITH YOUR OWN CRON
 	cron.RunJob()
-
 	//running with rest api
 	//gate.Route()
 

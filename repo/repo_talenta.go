@@ -54,7 +54,7 @@ func (a *RepoTalenta) Present(status string) ([]byte, error) {
 		"Authorization": "Bearer " + a.Token,
 	}
 	f := map[string]string{
-		"file": "/selfie.JPG",
+		"file": "./selfie.JPG",
 	}
 	c := curl.Curl{
 		BaseUrl: BaseUrlTalenta + "live-attendance",
