@@ -16,8 +16,8 @@ import (
 	"strings"
 )
 
-var METHOD_GET = "GET"
-var METHOD_POST = "POST"
+var MethodGet = "GET"
+var MethodPost = "POST"
 
 type Curl struct {
 	BaseUrl         string
@@ -29,15 +29,42 @@ type Curl struct {
 	Param           map[string]string
 }
 
+//go:generate mockgen -destination=./mocks/curl.go -package=mocks -source=./curl.go
+type ICurl interface {
+	Send() ([]byte, error)
+}
+
+type Config struct {
+	BaseUrl         string
+	Method          string
+	Body            map[string]string
+	Header          map[string]string
+	File            map[string]string
+	Param           map[string]string
+	HeaderMultiPart map[string]string
+}
+
+func New(Config *Config) ICurl {
+	return &Curl{
+		BaseUrl:         Config.BaseUrl,
+		Method:          Config.Method,
+		Body:            Config.Body,
+		Header:          Config.Header,
+		HeaderMultiPart: Config.HeaderMultiPart,
+		File:            Config.File,
+		Param:           Config.Param,
+	}
+}
+
 func (c *Curl) Send() ([]byte, error) {
 	var client = &http.Client{}
 	var request *http.Request
 	switch c.Method {
-	case METHOD_GET:
+	case MethodGet:
 		c.param()
 		r, _ := http.NewRequest(c.Method, c.BaseUrl, nil)
 		request = r
-	case METHOD_POST:
+	case MethodPost:
 		var b io.Reader
 		if len(c.getMultiPartHeader()) <= 0 {
 			b = c.bodyMultiPart()
@@ -47,7 +74,7 @@ func (c *Curl) Send() ([]byte, error) {
 		r, _ := http.NewRequest(c.Method, c.BaseUrl, b)
 		request = r
 	default:
-		return nil, errors.New("Method Not Available")
+		return nil, errors.New("method is not available")
 	}
 	request = c.header(request)
 	response, _ := client.Do(request)

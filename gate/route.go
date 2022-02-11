@@ -12,9 +12,14 @@ func Route() {
 			"message": "pong",
 		})
 	})
+
 	r.Use(Middleware())
+
 	r.Use(gin.Recovery())
+
 	r.GET("/checkin", controller.CheckIn())
+
 	r.GET("/checkout", controller.CheckOut())
+
 	_ = r.Run()
 }

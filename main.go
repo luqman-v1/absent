@@ -19,7 +19,7 @@ func main() {
 		log.Println("Error loading .env file")
 	}
 	helper.Dispatcher.Run()
-	//UNCOMMENT THIS FUNCTION IF YOU RUNNING WITH YOUR OWN CRON
+	//UNCOMMENT THIS FUNCTION IF YOU'RE RUNNING WITH YOUR OWN CRON
 	cron.RunJob()
 
 	//running with rest api
